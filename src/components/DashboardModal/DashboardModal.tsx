@@ -24,7 +24,7 @@ export const DashboardModal = () => {
         <ModalContainer>
           <div className="popUpAnim">
             <header>
-              <h2>Editar Tecnologia</h2>
+              <h2>Editar Contato</h2>
               <DefaultButton onClick={() => setModalOpen(false)}>
                 <FaWindowClose />
               </DefaultButton>
