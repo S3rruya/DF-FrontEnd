@@ -1,38 +1,54 @@
-.App {
-  text-align: center;
+body {
+  background-color: var(--color-grey-4);
+  font-family: "Inter";
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.popUpAnim {
+  animation: popUpAnim 0.7s;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@keyframes popUpAnim {
+  0% {
+    transform: translateY(-25%);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
   }
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* ScrollBars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
-
-.App-link {
-  color: #61dafb;
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+::-webkit-scrollbar-thumb {
+  background: #56568B;
+  border: 0px none #ffffff;
+  border-radius: 69px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8b8b8b;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #8b8b8b;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border: 2px none #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-track:active {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
