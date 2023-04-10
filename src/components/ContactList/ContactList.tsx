@@ -41,10 +41,9 @@ export const ContactList = () => {
                 }}
               >
                 <p>{item.name}</p>
-                
-                  <span>{item.email}</span>
-                  <span>{item.phone}</span>
-                
+                <span className="date">{item.createdAt?.substring(0, 10)}</span>
+                <span>{item.email}</span>
+                <span>{item.phone}</span>
               </li>
             );
           })
