@@ -135,7 +135,7 @@ export const ContactContainer = styled.main`
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: calc(100% - (var(--gap-1)*2));
+    width: calc(100% - (var(--gap-1) * 2));
     min-height: 10vh;
     gap: var(--gap-1);
     flex-wrap: wrap;
@@ -147,7 +147,7 @@ export const ContactContainer = styled.main`
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: space-around;
+    gap: 0.2em;
     background-color: var(--color-grey-4);
     border-radius: var(--radius-0);
     color: var(--color-grey-0);
@@ -161,10 +161,14 @@ export const ContactContainer = styled.main`
   p {
     font-size: var(--font-size-0);
     font-weight: var(--font-bolder);
+    margin-bottom: 5px;
   }
   span {
     font-size: var(--font-size-2);
     color: var(--color-grey-1);
+  }
+  span.date {
+    margin-bottom: 5px;
   }
 `;
 
