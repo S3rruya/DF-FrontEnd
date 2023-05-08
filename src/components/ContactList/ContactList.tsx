@@ -5,8 +5,11 @@ import { FaPlus } from "react-icons/fa";
 import { ContactContext } from "../../contexts/ContactContext";
 import * as Inter from "../../InterfacesChart";
 import { DashboardModal } from "../DashboardModal/DashboardModal";
+import { UserContext } from "../../contexts/UserContext";
+import { BsFillPencilFill } from "react-icons/bs";
 
 export const ContactList = () => {
+  const { userData }: Inter.iUserContext = useContext(UserContext);
   const { contactList, activateModal }: Inter.iContactsContext =
     useContext(ContactContext);
 
@@ -15,6 +18,25 @@ export const ContactList = () => {
       <DashboardModal />
       <header>
         <h3>Contatos</h3>
+        <div className={"UserPlate"}>
+          <div>
+            <h3>{userData.name}</h3>
+            <span>{userData.email}</span>
+            <span>{userData.phone}</span>
+          </div>
+          <BsFillPencilFill
+            className="pen"
+            onClick={() => {
+              activateModal(
+                "editUser",
+                userData.email,
+                userData.name,
+                userData.phone,
+                userData.id
+              );
+            }}
+          />
+        </div>
         <DefaultButton
           onClick={() => {
             activateModal("create");
@@ -32,7 +54,7 @@ export const ContactList = () => {
                 id={item.id}
                 onClick={() => {
                   activateModal(
-                    "edit",
+                    "editContact",
                     item.email,
                     item.name,
                     item.phone,

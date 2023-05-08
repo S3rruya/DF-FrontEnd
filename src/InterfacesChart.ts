@@ -1,8 +1,5 @@
 import { FormEvent } from "react";
-import {
-  UseFormHandleSubmit,
-  UseFormRegister,
-} from "react-hook-form";
+import { UseFormHandleSubmit, UseFormRegister } from "react-hook-form";
 
 // \/ User
 export interface iFormLogin {
@@ -36,15 +33,22 @@ export interface iUserData {
   created_at: string;
   updated_at: string;
 }
+
+export interface iEditUserData {
+  name: string;
+  email: string;
+  phone: string;
+}
 export interface iUserContext {
   handleSubmit: UseFormHandleSubmit<any>;
   register: UseFormRegister<iFormLogin | iFormRegister>;
   loginFunction(data: iFormLogin): void;
   registerFunction(data: iFormRegister): void;
+  editFunction(event: FormEvent<HTMLFormElement>): void;
   goRegister(): void;
   goLogin(): void;
-  userData: iUserData | {};
-  setUserData: React.Dispatch<React.SetStateAction<iUserData | {}>>;
+  userData: iUserData;
+  setUserData: React.Dispatch<React.SetStateAction<iUserData>>;
   errors: any;
 }
 // \/ Tech's Interfaces \/
@@ -61,7 +65,6 @@ export interface iContactsContext {
     email?: string,
     id?: string,
     phone?: string
-
   ): void;
   editContact(event: FormEvent<HTMLFormElement>): void;
   registerContact(event: FormEvent<HTMLFormElement>): void;

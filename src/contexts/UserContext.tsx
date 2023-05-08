@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import * as yup from "yup";
 import {
   FieldErrorsImpl,
@@ -11,15 +11,27 @@ import { toast } from "react-toastify";
 import { useLocation, useNavigate } from "react-router-dom";
 import { userRequests } from "../services/requests";
 import * as Inter from "../InterfacesChart";
+import { ContactContext } from "./ContactContext";
+
+export const userDataEmpty: Inter.iUserData = {
+  id: "",
+  name: "",
+  email: "",
+  phone: "",
+  contacts: [],
+  created_at: "",
+  updated_at: "",
+};
 
 export const UserContext = createContext({} as Inter.iUserContext);
 
 export const UserProvider = ({ children }: Inter.iUserContextProps) => {
+  const { setModalOpen } = useContext(ContactContext);
   const pathName = useLocation().pathname;
   const navigate = useNavigate();
   const goRegister = () => navigate("register");
   const goLogin = () => navigate("login");
-  const [userData, setUserData] = useState<Inter.iUserData | {}>({});
+  const [userData, setUserData] = useState<Inter.iUserData>(userDataEmpty);
   const [token, setToken] = useState<string | null>(
     localStorage.getItem("@KenzieHub:TOKEN")
   );
@@ -34,12 +46,12 @@ export const UserProvider = ({ children }: Inter.iUserContextProps) => {
           const { data } = await userRequests.get(`/users/${userID}`);
           setUserData(data);
         } catch (error) {
-          setUserData({});
+          setUserData(userDataEmpty);
           localStorage.clear();
           goLogin();
         }
       } else {
-        setUserData({});
+        setUserData(userDataEmpty);
         goLogin();
       }
     };
@@ -117,6 +129,33 @@ export const UserProvider = ({ children }: Inter.iUserContextProps) => {
         toast.error(error.response.data.message);
       });
   };
+
+  const editFunction = async (
+    event: React.FormEvent<Inter.YourFormElement>
+  ) => {
+    event.preventDefault();
+    userRequests.defaults.headers.authorization = `Bearer ${localStorage.getItem(
+      "@KenzieHub:TOKEN"
+    )}`;
+    await userRequests
+      .patch(`users/`, {
+        name: event.currentTarget.elements.contactName.value,
+        email: event.currentTarget.elements.contactEmail.value,
+        phone: event.currentTarget.elements.contactPhone.value,
+      })
+      .then((res) => {
+        toast.success("Usuário editado");
+        window.location.reload();
+        setModalOpen(false);
+      })
+      .catch((error) => {
+        toast.error(
+          error?.response.request.status === 401
+            ? "Usuário já extistente."
+            : "Error"
+        );
+      });
+  };
   return (
     <UserContext.Provider
       value={{
@@ -124,6 +163,7 @@ export const UserProvider = ({ children }: Inter.iUserContextProps) => {
         register,
         loginFunction,
         registerFunction,
+        editFunction,
         goRegister,
         goLogin,
         userData,
