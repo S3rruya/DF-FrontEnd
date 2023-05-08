@@ -31,13 +31,9 @@ export const UserProvider = ({ children }: Inter.iUserContextProps) => {
       if (token) {
         try {
           userRequests.defaults.headers.authorization = `Bearer ${token}`;
-          console.log(userID);
-          const { data } = await userRequests.get(
-            `/users/${userID}`
-          );
+          const { data } = await userRequests.get(`/users/${userID}`);
           setUserData(data);
         } catch (error) {
-          console.log(error);
           setUserData({});
           localStorage.clear();
           goLogin();
@@ -101,7 +97,6 @@ export const UserProvider = ({ children }: Inter.iUserContextProps) => {
         navigate("/");
       })
       .catch((error) => {
-        console.log(error)
         toast.error("Email ou senha inválidos");
       });
   };
@@ -119,7 +114,6 @@ export const UserProvider = ({ children }: Inter.iUserContextProps) => {
         goLogin();
       })
       .catch((error) => {
-        console.log(error)
         toast.error(error.response.data.message);
       });
   };
