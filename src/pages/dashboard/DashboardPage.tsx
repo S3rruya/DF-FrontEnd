@@ -4,46 +4,40 @@ import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { ContactList } from "../../components/ContactList/ContactList";
 import { ContactContext, ContactProvider } from "../../contexts/ContactContext";
+import * as Inter from "../../InterfacesChart";
+import { iContactsContext, iUserData } from "../../InterfacesChart";
+import { BsFillPencilFill } from "react-icons/bs";
+import { DashboardModal } from "../../components/DashboardModal/DashboardModal";
 
-interface iTechs {
-  id: string;
-  title: string;
-  status: string;
-  created_at: string;
-  updated_at: string;
-}
-interface iWorks {
-  id: string;
-  description: string;
-  title: string;
-  deploy_url: string;
-  created_at: string;
-  updated_at: string;
-}
-interface iUserData {
-  id: string;
-  name: string;
-  email: string;
-  course_module: string;
-  bio: string;
-  contact: string;
-  techs: iTechs[];
-  works: iWorks[];
-  created_at: string;
-  updated_at: string;
-  avatar_url: null | string;
-}
 interface iUserContext {
   goLogin(): void;
-  userData: iUserData | {};
+  userData: iUserData;
 }
 export const DashboardPage = () => {
   const { goLogin, userData }: iUserContext = useContext(UserContext);
+  const { contactList, activateModal }: Inter.iContactsContext =
+    useContext(ContactContext);
 
   return (
-    <>
+    <ContactProvider>
       <DashboardContainer>
         <span></span>
+        {/* <div className={"UserPlate"}>
+          <span>{userData.name}</span>
+          <BsFillPencilFill
+            className="pen"
+            onClick={() => {
+              activateModal(
+                "editContact",
+                userData.name,
+                userData.email,
+                userData.id,
+                userData.phone
+              );
+            }}
+          />
+        </div> */}
+
         <button
           onClick={() => {
             localStorage.clear();
@@ -54,9 +48,7 @@ export const DashboardPage = () => {
         </button>
       </DashboardContainer>
       <Line />
-      <ContactProvider>
-        <ContactList />
-      </ContactProvider>
-    </>
+      <ContactList />
+    </ContactProvider>
   );
 };

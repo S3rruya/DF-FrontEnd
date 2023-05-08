@@ -74,7 +74,7 @@ export const DashboardContainer = styled.header`
   display: flex;
   justify-content: space-between;
   button {
-    margin-top: var(--gap-2);
+    margin: auto 0;
     background-color: var(--color-grey-3);
     border: 0;
     border-radius: var(--radius-0);
@@ -87,17 +87,6 @@ export const DashboardContainer = styled.header`
   }
   img {
     margin-top: var(--gap-2);
-  }
-  h2 {
-    margin: var(--gap-1) 0;
-    color: var(--color-grey-0);
-    font-size: var(--font-size-h2);
-    font-weight: var(--font-bolder);
-  }
-  span {
-    margin: var(--gap-1) 0;
-    color: var(--color-grey-1);
-    font-size: var(--font-size-1);
   }
 `;
 
@@ -169,6 +158,36 @@ export const ContactContainer = styled.main`
   }
   span.date {
     margin-bottom: 5px;
+  }
+  div.UserPlate {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    color: white;
+    text-align: center;
+  }
+  .pen {
+    background-color: var(--color-grey-3);
+    padding: 0.3em;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+  .pen:hover {
+    background-color: var(--color-grey-2);
+    cursor: pointer;
+    scale: 110%;
+  }
+  div.UserPlate div {
+    display: flex;
+    flex-direction: column;
+  }
+  div.UserPlate h3 {
+    color: var(--color-grey-0);
+    margin: 1em 0 0 0;
+  }
+  div.UserPlate span {
+    color: var(--color-grey-0);
+    font-size: 0.75em;
   }
 `;
 

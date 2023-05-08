@@ -6,6 +6,7 @@ import { DefaultInput } from "../Inputs/DefaultInput";
 import { useContext } from "react";
 import { ContactContext } from "../../contexts/ContactContext";
 import * as Inter from "../../InterfacesChart";
+import { UserContext } from "../../contexts/UserContext";
 
 export const DashboardModal = () => {
   const {
@@ -16,10 +17,11 @@ export const DashboardModal = () => {
     registerContact,
     deleteContact,
   }: Inter.iContactsContext = useContext(ContactContext);
+  const { editFunction }: Inter.iUserContext = useContext(UserContext);
   const data = modalData;
 
   if (modalOpen) {
-    if ((data as Inter.iModalData).type === "edit") {
+    if ((data as Inter.iModalData).type === "editContact") {
       return (
         <ModalContainer>
           <div className="popUpAnim">
@@ -76,6 +78,60 @@ export const DashboardModal = () => {
                   }}
                 >
                   Excluir
+                </DefaultButton>
+              </div>
+            </form>
+          </div>
+        </ModalContainer>
+      );
+    }
+    if ((data as Inter.iModalData).type === "editUser") {
+      return (
+        <ModalContainer>
+          <div className="popUpAnim">
+            <header>
+              <h2>Editar usuário</h2>
+              <DefaultButton onClick={() => setModalOpen(false)}>
+                <FaWindowClose />
+              </DefaultButton>
+            </header>
+            <form onSubmit={editFunction}>
+              <DefaultInput
+                defaultValue={(data as Inter.iModalData).name}
+                label="Nome"
+                readOnly={false}
+                name="contactName"
+              />
+              <DefaultInput
+                defaultValue={(data as Inter.iModalData).email}
+                label="Email"
+                readOnly={false}
+                name="contactEmail"
+              />
+              <DefaultInput
+                defaultValue={(data as Inter.iModalData).phone}
+                label="Telefone"
+                readOnly={false}
+                name="contactPhone"
+              />
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: "10%",
+                  width: "90%",
+                  margin: "auto",
+                }}
+              >
+                <DefaultButton
+                  className="form-button"
+                  type="submit"
+                  style={{
+                    width: "60%",
+                    margin: "0",
+                  }}
+                >
+                  Salvar Alterações
                 </DefaultButton>
               </div>
             </form>

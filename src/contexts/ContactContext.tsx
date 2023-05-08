@@ -16,13 +16,9 @@ export const ContactProvider = ({ children }: Inter.iContactsContextProps) => {
         userRequests.defaults.headers.authorization = `Bearer ${localStorage.getItem(
           "@KenzieHub:TOKEN"
         )}`;
-        const { data } = await userRequests.get(
-          `/users/contacts/`
-        );
+        const { data } = await userRequests.get(`/users/contacts/`);
         setContactList(data.contacts);
-      } catch (error) {
-        console.log(error);
-      }
+      } catch (error) {}
     };
     getUser();
   }, [modalOpen]);
@@ -59,7 +55,6 @@ export const ContactProvider = ({ children }: Inter.iContactsContextProps) => {
         setModalOpen(false);
       })
       .catch((error) => {
-        console.log(error);
         toast.error(
           error?.response.request.status === 401
             ? "Contato já extistente."
@@ -71,7 +66,6 @@ export const ContactProvider = ({ children }: Inter.iContactsContextProps) => {
     event: React.FormEvent<Inter.YourFormElement>
   ) => {
     event.preventDefault();
-    console.log(event.currentTarget.elements.contactName.value);
     userRequests.defaults.headers.authorization = `Bearer ${localStorage.getItem(
       "@KenzieHub:TOKEN"
     )}`;
@@ -86,7 +80,6 @@ export const ContactProvider = ({ children }: Inter.iContactsContextProps) => {
         setModalOpen(false);
       })
       .catch((error) => {
-        console.log(error);
         toast.error(
           error?.response.request.status === 401
             ? "Contato já extistente."
@@ -107,7 +100,6 @@ export const ContactProvider = ({ children }: Inter.iContactsContextProps) => {
         return res;
       })
       .catch((error) => {
-        console.log(error);
         toast.error(
           error?.response.request.status === 401
             ? "Contato já extistente."
